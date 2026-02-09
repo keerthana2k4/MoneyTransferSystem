@@ -1,11 +1,6 @@
 package com.fidelity.mts.exception;
  
+@SuppressWarnings("serial")
 public class DuplicateTransferException extends RuntimeException {
-	private static final long serialVersionUID = 1L;
- 
-	
-	public DuplicateTransferException(String idempotencyKey) {
-		super("Duplicate transfer detected for transaction id: "+ idempotencyKey);
-	}
- 
+
 }

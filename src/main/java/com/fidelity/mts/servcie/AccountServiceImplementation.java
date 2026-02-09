@@ -1,16 +1,13 @@
 package com.fidelity.mts.servcie;
 import java.math.BigDecimal;
-
 import java.time.Instant;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fidelity.mts.dto.TransferRequest;
+import com.fidelity.mts.dto.AccountResponse;
 import com.fidelity.mts.entity.Account;
 import com.fidelity.mts.enums.AccountStatus;
-import com.fidelity.mts.exception.AccountNotActiveException;
 import com.fidelity.mts.exception.AccountNotFoundException;
 import com.fidelity.mts.repo.AccountRepo;
 @Service
@@ -25,6 +22,19 @@ public class AccountServiceImplementation implements AccountService{
 		return "Added Account with id: "+act.getId();
 	}
 	
+	@Override
+	public AccountResponse getDetails(Long id) {
+		Account account = repo.findById(id).get();
+		if (account == null) throw new AccountNotFoundException();
+		AccountResponse accResponseDTO = new AccountResponse(
+				account.getId(),
+				account.getHolderName(),
+				account.getBalance(),
+				account.getStatus(),
+				account.getVersion(),
+				account.getLastUpdated());
+		return accResponseDTO;
+	}
 	
 	@Override
 	public AccountStatus findByAccountStatus(Long id)  {
@@ -35,12 +45,33 @@ public class AccountServiceImplementation implements AccountService{
 		}
 		return accountStatus.get().getStatus();
 	}
+	
+	@Override
+	public Account findById(Long id) {
+		Optional<Account> foundAcc = repo.findById(id);
+		if(foundAcc.isEmpty()) {
+			throw new AccountNotFoundException();
+		}
+		else {
+			return foundAcc.get();
+		}
+	}
+	
+	@Override
+	public BigDecimal getBalance(Long id) {
+		Account accountFound = this.findById(id);
+		return accountFound.getBalance();		
+	}
+	
+	@Override
 	public void credit(Account act, BigDecimal amt) {
 		BigDecimal final_amt = act.getBalance().add(amt);
 		act.setBalance(final_amt);
 		Instant curr_time = Instant.now();
 		act.setLastUpdated(curr_time);
 	}
+	
+	@Override
 	public void debit(Account act, BigDecimal amt) {
 		BigDecimal final_amt = act.getBalance().subtract(amt);
 		act.setBalance(final_amt);
@@ -48,31 +79,8 @@ public class AccountServiceImplementation implements AccountService{
 		act.setLastUpdated(curr_time);
 	}
 	
-	@Override
-	public String transferMoney(TransferRequest transferRequest, BigDecimal amount) {
-		
-		Optional<Account> fromAcc = repo.findById(transferRequest.getFromId());
-		if(fromAcc.isEmpty()) {
-			throw new AccountNotFoundException(fromAcc.get().getId());
-		}
-		
-		Optional<Account> toAcc = repo.findById(transferRequest.getToId());
-		if(!toAcc.isEmpty()) {
-			throw new AccountNotFoundException(fromAcc.get().getId());
-		}
-		
-		Account foundFromAcc = fromAcc.get();
-		Account foundToAcc = toAcc.get();
-		
-		this.debit(foundFromAcc, amount);
-		this.credit(foundToAcc, amount);
-		
-		repo.save(foundFromAcc);
-		repo.save(foundFromAcc);
-		
-		return "Amount Transferred Successfully";
-		
-	}
+
+
 
 }
 
