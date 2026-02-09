@@ -36,7 +36,7 @@ public class TransactionLog {
     @Column(nullable = false, updatable = false)
     private Instant createdOn;
     
-    @Column
+    @Column(nullable = false, unique = true, updatable = false)
     private String idempotencyKey;
 
     public UUID getId() {
@@ -49,6 +49,18 @@ public class TransactionLog {
 	}
 
 
+	public TransactionLog(Long fromAccountId, Long toAccountId, BigDecimal amount, TransactionStatus status) {
+		super();
+		this.fromAccountId = fromAccountId;
+		this.toAccountId = toAccountId;
+		this.amount = amount;
+		this.status = status;
+		this.failureReason = "";
+		this.createdOn = Instant.now();
+		this.idempotencyKey = UUID.randomUUID().toString();;
+	}
+
+
 	public String getIdempotencyKey() {
 		return idempotencyKey;
 	}
@@ -57,12 +69,6 @@ public class TransactionLog {
 	public void setIdempotencyKey(String idempotencyKey) {
 		this.idempotencyKey = idempotencyKey;
 	}
-
-
-	@PrePersist
-    public void prePersist() {
-        this.createdOn = Instant.now();
-    }
 
     
 	public Long getFromAccountId() {
@@ -98,8 +104,8 @@ public class TransactionLog {
 	public Instant getCreatedOn() {
 		return createdOn;
 	}
-	public void setCreatedOn(Instant createdOn) {
-		this.createdOn = createdOn;
+	public void setCreatedOn() {
+		this.createdOn = Instant.now();
 	}
 	
    

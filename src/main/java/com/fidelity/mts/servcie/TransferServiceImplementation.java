@@ -3,6 +3,8 @@ package com.fidelity.mts.servcie;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.fidelity.mts.dto.TransferRequest;
@@ -30,20 +32,17 @@ public class TransferServiceImplementation implements TransferService{
 	@Override
 	public TransferResponse transferMoney(TransferRequest transferRequest) {
 		
-		TransactionLog log = new TransactionLog();
+		TransactionLog log = new TransactionLog(transferRequest.getFromId(),transferRequest.getToId(),transferRequest.getAmount(),TransactionStatus.SUCCESS );
 		
-		log.setFromAccountId(transferRequest.getFromId());
-		log.setToAccountId(transferRequest.getToId());
-		log.setAmount(transferRequest.getAmount());
-		log.setStatus(TransactionStatus.SUCCESS);
-		logrepo.save(log);
-
 	    Account fromAcc = accountService.findById(transferRequest.getFromId());
 	    if (fromAcc == null) {
 	        throw new AccountNotFoundException();
 	    }
 	    
 	    if(fromAcc.getStatus()!= AccountStatus.ACTIVE) {
+	    	log.setStatus(TransactionStatus.FAILED);
+	    	log.setFailureReason("ACC-403 Account not Active");
+	    	logrepo.save(log);
 	    	throw new AccountNotActiveException();
 	    }
 	    
@@ -54,14 +53,21 @@ public class TransferServiceImplementation implements TransferService{
 	    }
 	    
 	    if(toAcc.getStatus()!= AccountStatus.ACTIVE) {
+	    	log.setStatus(TransactionStatus.FAILED);
+	    	log.setFailureReason("ACC-403 Account not Active");
+	    	logrepo.save(log);
 	    	throw new AccountNotActiveException();
 	    }
 	    
+	    logrepo.save(log);
 
 		BigDecimal balance = fromAcc.getBalance();
 		BigDecimal amount  = transferRequest.getAmount();
 		
 		if (balance.compareTo(amount) < 0) {
+			log.setStatus(TransactionStatus.FAILED);
+	    	log.setFailureReason("TRX-400 Insufficient Funds.");
+	    	logrepo.save(log);
 		    throw new InsufficientBalanceException();
 		}
 	
