@@ -2,9 +2,6 @@ package com.fidelity.mts.servcie;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.fidelity.mts.dto.TransferRequest;
@@ -84,21 +81,19 @@ public class TransferServiceImplementation implements TransferService{
 			
 		}
 	
+    @Override
+    public List<TransactionLog> getTransaction(Long id){
+        return logrepo.findByFromAccountIdOrToAccountId(id, id);
+    }
 
-public List<TransactionLog> getTransaction(Long id){
-    return logrepo.findByFromAccountIdOrToAccountId(id, id);
-}
+    @Override
+    public List<TransactionLog> findByFromAccountId(Long id) {
+	   return logrepo.findByFromAccountId(id);
+    }
 
-
-@Override
-public List<TransactionLog> findByFromAccountId(Long id) {
-	return logrepo.findByFromAccountId(id);
-}
-
-@Override
-public List<TransactionLog> findByToAccountId(Long id) {
-	return logrepo.findByToAccountId(id);
-}
-	
+    @Override
+    public List<TransactionLog> findByToAccountId(Long id) {
+	  return logrepo.findByToAccountId(id);
+    }
 
 }

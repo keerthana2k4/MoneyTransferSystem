@@ -6,6 +6,7 @@ import com.fidelity.mts.dto.TransferResponse;
 import com.fidelity.mts.entity.TransactionLog;
 
 public interface TransferService {
+	
 	TransferResponse transferMoney(TransferRequest transferRequest);
 	List<TransactionLog> getTransaction(Long id);
 	List<TransactionLog> findByFromAccountId(Long fromId);

@@ -1,15 +1,16 @@
 package com.fidelity.mts.servcie;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.fidelity.mts.dto.AccountResponse;
 import com.fidelity.mts.entity.Account;
 import com.fidelity.mts.enums.AccountStatus;
 import com.fidelity.mts.exception.AccountNotFoundException;
 import com.fidelity.mts.repo.AccountRepo;
+
 @Service
 public class AccountServiceImplementation implements AccountService{
 	
@@ -78,9 +79,6 @@ public class AccountServiceImplementation implements AccountService{
 		Instant curr_time = Instant.now();
 		act.setLastUpdated(curr_time);
 	}
-	
-
-
 
 }
 

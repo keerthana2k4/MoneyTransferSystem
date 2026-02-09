@@ -1,12 +1,10 @@
 package com.fidelity.mts.entity;
-import com.fidelity.mts.enums.TransactionStatus;
 
+import com.fidelity.mts.enums.TransactionStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
@@ -64,13 +62,9 @@ public class TransactionLog {
 	public String getIdempotencyKey() {
 		return idempotencyKey;
 	}
-
-
 	public void setIdempotencyKey(String idempotencyKey) {
 		this.idempotencyKey = idempotencyKey;
-	}
-
-    
+	}    
 	public Long getFromAccountId() {
 		return fromAccountId;
 	}
@@ -108,6 +102,4 @@ public class TransactionLog {
 		this.createdOn = Instant.now();
 	}
 	
-   
-    
 }

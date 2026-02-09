@@ -14,12 +14,10 @@ public class SpringSecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		
 		http.csrf(csrf -> csrf.disable());
-		
 		http.authorizeHttpRequests(
 				auth -> auth.requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
 				.anyRequest().authenticated()
 				);
-		
 		http.httpBasic(Customizer.withDefaults());
 		return http.build();
 	}

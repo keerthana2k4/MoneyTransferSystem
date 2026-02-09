@@ -1,4 +1,5 @@
 package com.fidelity.mts.entity;
+
 import com.fidelity.mts.enums.AccountStatus;
 
 import jakarta.persistence.Column;
@@ -36,7 +37,6 @@ public class Account {
     public boolean isActive() {
     	return this.status==AccountStatus.ACTIVE;
     }
- 
     
 	public Long getId() {
 		return id;

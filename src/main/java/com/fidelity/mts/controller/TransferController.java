@@ -1,8 +1,6 @@
 package com.fidelity.mts.controller;
 
-import java.math.BigDecimal;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +14,7 @@ import com.fidelity.mts.dto.TransferRequest;
 import com.fidelity.mts.dto.TransferResponse;
 import com.fidelity.mts.servcie.TransferService;
 import com.fidelity.mts.entity.TransactionLog;
+
 @RestController
 @RequestMapping("/transfer")
 public class TransferController {
@@ -26,7 +25,7 @@ public class TransferController {
 	
 	public ResponseEntity<TransferResponse> findByAccountStatus(@RequestBody TransferRequest transferRequest){
 		return ResponseEntity.status(HttpStatus.OK).body(service.transferMoney(transferRequest));
-}
+    }
 	
 	@GetMapping("/{id}/transactions")
 	public ResponseEntity<List<TransactionLog>> getTransactions(@PathVariable Long id){

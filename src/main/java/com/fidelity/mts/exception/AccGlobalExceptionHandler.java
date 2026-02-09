@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.fidelity.mts.dto.ErrorResponse;
  
-//@RestControllerAdvice
 @ControllerAdvice
 public class AccGlobalExceptionHandler {
 	@ExceptionHandler(value=AccountNotFoundException.class)

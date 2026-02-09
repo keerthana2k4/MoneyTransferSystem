@@ -1,4 +1,5 @@
 package com.fidelity.mts.controller;
+
 import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.fidelity.mts.dto.AccountResponse;
 import com.fidelity.mts.entity.Account;
 import com.fidelity.mts.enums.AccountStatus;
@@ -38,11 +38,4 @@ public class AccountController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.getBalance(id));
 	}
 	
-	
-	
-	
-	
-
-	
-
 }
