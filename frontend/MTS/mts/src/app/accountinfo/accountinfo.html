@@ -1,0 +1,11 @@
+<div class = "home-container">
+    <h1>Account Information</h1>
+    <label for="accountId">Enter Account ID:</label>
+    <input id="accountId" [(ngModel)]="accountId" type="number" placeholder="Enter ID" class="form-control" />
+    <div class="btn-grp">
+        <a *ngIf="accountId" [routerLink]="['/getDetails', accountId]" class="btn btn-warning">GET DETAILS</a>
+        <br>
+        <a *ngIf="accountId" [routerLink]="['/getBalance', accountId]" class="btn btn-primary">GET BALANCE</a>
+
+    </div>
+    </div>

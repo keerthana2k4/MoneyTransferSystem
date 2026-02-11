@@ -1,0 +1,29 @@
+<h1 class="title">Employee List</h1>
+
+<div class="container">
+    <table class="custom-table" *ngIf="details">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th> NAME</th>
+            <th>BALANCE</th>
+            <th>STATUS</th>
+            <th>VERSION</th>
+            
+           
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="details">
+                <td>{{details.id}}</td>
+                <td>{{details.holderName}}</td>
+                <td>{{details.balance}}</td>
+                <td>{{details.status}}</td>
+                <td>{{details.version}}</td>
+                
+            </tr>
+        </tbody>
+    </table>
+
+    <button *ngIf="showBackButton" (click)="navigate()">Back to Home</button>
+</div>

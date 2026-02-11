@@ -1,0 +1,92 @@
+body{
+     width: 600px;
+     height:600px;
+     align-items: center;
+     justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg,#1e3c72, #2a5298);
+    margin:550px;
+    padding:0;
+}
+
+.home-container,.container{
+    width: 400px;
+    margin: 800px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px
+    rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+h1,h2{
+    margin-bottom: 20px;
+    color:#1e3c72;
+}
+
+.title{
+    text-align: center;
+    color: white;
+    margin-top: 40px;
+}
+
+.form-control{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.btn{
+    background-color: #1e3c72;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 5px;
+    display: inline-block;
+}
+
+.btn:hover{
+    background-color: #16305c;
+}
+.secondary{
+    background-color: #28a745;
+}
+.secondary:hover{
+    background-color: #1f7d35;
+}
+
+
+.custom-table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.custom-table th{
+    background: #1e3c72;
+    color: white;
+    padding: 10px;
+}
+
+.custom-table td{
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.balance{
+    font-size: 28px;
+    font-weight: bold;
+    color:green;
+}
+
+.error{
+    color: red;
+    font-weight: bold;
+}
+
+
